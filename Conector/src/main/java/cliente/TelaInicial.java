@@ -13,6 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -28,6 +29,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import lib.ConsultaSoft;
 import lib.ConsultasCompufarma;
 import lib.EstoqueMaior0;
 import lib.ObjetoRetorno;
@@ -49,6 +51,7 @@ public class TelaInicial extends JFrame {
 	private static final String SELECIONAR_O_ARQUIVO_DBF = "Selecionar o arquivo .dbf";
 	private Boolean conectadoSoft = false;
 	ConsultasCompufarma consultas = new ConsultasCompufarma();
+	ConsultaSoft consultasSoft = new ConsultaSoft();
 	TelaModelo modelo = new TelaModelo();
 
 	private JTextField tfUsuarioSoft;
@@ -628,9 +631,10 @@ public class TelaInicial extends JFrame {
 		btnUtilizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				List<TributacaoSoftpharma> pesquisaTributacoes = consultasSoft.pesquisaTributacoes(modelo);
+				Set<Tributacao> pesquisaTributacao = consultas.pesquisaTributacao();
 				
-				
-				new TelaAtualizacao(new ArrayList<ProdutosSoftpharma>(), new LinkedHashSet<Tributacao>(), new ArrayList<TributacaoSoftpharma>());
+				new TelaAtualizacao(new ArrayList<ProdutosSoftpharma>(), pesquisaTributacao, pesquisaTributacoes);
 			}
 		});
 		GridBagConstraints gbc_btnUtilizar = new GridBagConstraints();

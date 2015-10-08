@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lib.ProdutosSoftpharma;
+import lib.TributacaoSoftpharma;
 
 /**
  * 
@@ -18,6 +19,7 @@ import lib.ProdutosSoftpharma;
 public class ConectarMysql {
 	private static Statement stms;
 	private static List<ProdutosSoftpharma> listretorno = null;
+	private static List<TributacaoSoftpharma> listTibutacoes = null;
 
 	/**
 	 * Esse metodo tem a função de fazer a conexão com o Base Softpharma.
@@ -54,20 +56,20 @@ public class ConectarMysql {
 
 			stms = con.createStatement();
 
-			ProdutosSoftpharma retornoTeste;
+			ProdutosSoftpharma retornoAtivos;
 			listretorno = new ArrayList<ProdutosSoftpharma>();
 			ResultSet executeQuery;
 
 			executeQuery = stms.executeQuery(sql);
 
 			while (executeQuery.next()) {
-				retornoTeste = new ProdutosSoftpharma();
+				retornoAtivos = new ProdutosSoftpharma();
 
-				retornoTeste.setDescricao(executeQuery.getString("c.cad_descricao"));
-				retornoTeste.setCodigoBarras(executeQuery.getString("c.cad_cod_barra"));
-				retornoTeste.setQtde(executeQuery.getString("cad_qtde_estoque"));
+				retornoAtivos.setDescricao(executeQuery.getString("c.cad_descricao"));
+				retornoAtivos.setCodigoBarras(executeQuery.getString("c.cad_cod_barra"));
+				retornoAtivos.setQtde(executeQuery.getString("cad_qtde_estoque"));
 
-				listretorno.add(retornoTeste);
+				listretorno.add(retornoAtivos);
 
 			}
 			stms.close();
@@ -76,5 +78,34 @@ public class ConectarMysql {
 			e.printStackTrace();
 		}
 		return listretorno;
+	}
+	public static List<TributacaoSoftpharma> pesquisaTributacoes(String sql, String ip,String banco,String usuario, String senha) {
+		try {
+			Connection con = conectarBanco(ip,banco,usuario, senha);
+
+			stms = con.createStatement();
+
+			TributacaoSoftpharma retornoTributacao;
+			listTibutacoes = new ArrayList<TributacaoSoftpharma>();
+			ResultSet executeQuery;
+
+			executeQuery = stms.executeQuery(sql);
+
+			while (executeQuery.next()) {
+				retornoTributacao = new TributacaoSoftpharma();
+
+				retornoTributacao.setCodigo(executeQuery.getString("icm_codigo"));
+				retornoTributacao.setTributacao(executeQuery.getString("icm_descricao"));
+
+				listTibutacoes.add(retornoTributacao);
+
+			}
+			stms.close();
+			return listTibutacoes;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listTibutacoes;
+		
 	}
 }

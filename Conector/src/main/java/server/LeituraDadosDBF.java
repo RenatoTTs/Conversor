@@ -3,9 +3,12 @@ package server;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import lib.ProdutosCompufarma;
+import lib.Tributacao;
 import nl.knaw.dans.common.dbflib.CorruptedTableException;
 import nl.knaw.dans.common.dbflib.Field;
 import nl.knaw.dans.common.dbflib.IfNonExistent;
@@ -21,14 +24,18 @@ public class LeituraDadosDBF {
 	private Integer somaEstoque = 0;
 	private int qtdItemEstoque = 0;
 	private int qtdCodigoBarrasAtivos = 0;
+	private File caminho;
 
 	/**
-	 * Esse metodos tem a função de buscar todos os produtos do Sistema Compufarma, onde a tabela de produtos é a "arqest.dbf"
+	 * Esse metodos tem a função de buscar todos os produtos do Sistema
+	 * Compufarma, onde a tabela de produtos é a "arqest.dbf"
+	 * 
 	 * @param selectedFile
 	 * @return
 	 */
 	public List<ProdutosCompufarma> buscarProdutos(File selectedFile) {
 		qtdCodigoBarrasAtivos = 0;
+		caminho = selectedFile;
 		List<ProdutosCompufarma> listaProdutos = new ArrayList<ProdutosCompufarma>();
 		Table table = new Table(new File(selectedFile.getPath() + "\\arqest.dbf"));
 		try {
@@ -119,6 +126,39 @@ public class LeituraDadosDBF {
 			e.printStackTrace();
 		}
 		return listaProdutos;
+	}
+
+	public Set<Tributacao> pesquisaTibutacoes() {
+		Table table = new Table(new File(caminho.getPath() + "\\icms.dbf"));
+
+		Set<Tributacao> listaTributacoes = new LinkedHashSet<Tributacao>();
+
+		try {
+			table.open(IfNonExistent.ERROR);
+			List<Field> fields2 = table.getFields();
+			qtdItemEstoque = table.getRecordCount();
+
+			for (int i = 0; i < qtdItemEstoque; i++) {
+				Tributacao tributacaoComp = new Tributacao();
+				for (Field field : fields2) {
+					if (field.getName().equals("CODIGO")) {
+						if (table.getRecordAt(i).getStringValue(field.getName()) != null) {
+							tributacaoComp.setCodigo(table.getRecordAt(i).getStringValue(field.getName()));
+						}
+					} else if (field.getName().equals("ICMS")) {
+						if (table.getRecordAt(i).getStringValue(field.getName()) != null) {
+							tributacaoComp.setAlicota(table.getRecordAt(i).getStringValue(field.getName()));
+						}
+					}
+				}
+				listaTributacoes.add(tributacaoComp);
+			}
+		} catch (CorruptedTableException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return listaTributacoes;
 	}
 
 	public Integer getSomaEstoque() {

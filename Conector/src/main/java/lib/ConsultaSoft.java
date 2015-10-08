@@ -38,6 +38,14 @@ public class ConsultaSoft {
 		
 	}
 	
+	public List<TributacaoSoftpharma> pesquisaTributacoes(TelaModelo modelo) {
+		String sql = " SELECT * FROM paricm1";		
+		@SuppressWarnings("static-access")
+		List<TributacaoSoftpharma> retornoPesquisa = conectar.pesquisaTributacoes(sql,modelo.getIp(),modelo.getBanco(),modelo.getUsuarioSoft(), modelo.getSenhaSoft());
+		
+		return retornoPesquisa;
+	}
+	
 
 	
 	public void dividirDescricaoEAtualizar(Set<ProdutosSoftpharma> listaAtualizada, List<Boolean> listaBoolean){

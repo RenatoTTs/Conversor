@@ -1,9 +1,9 @@
 package lib;
 
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import server.LeituraDadosDBF;
 
@@ -131,5 +131,12 @@ public class ConsultasCompufarma {
 		}
 
 	}
+	
+	public Set<Tributacao> pesquisaTributacao(){
+		
+		Set<Tributacao> buscarProdutos = lerDados.pesquisaTibutacoes();
+		return buscarProdutos;
+	}
+	
 
 }
