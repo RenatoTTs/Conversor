@@ -1,6 +1,7 @@
 package lib;
 
 import java.util.List;
+import java.util.Set;
 
 import server.ConectarMysql;
 
@@ -37,6 +38,11 @@ public class ConsultaSoft {
 		
 	}
 
+	
+	public void dividirDescricaoEAtualizar(Set<ProdutosSoftpharma> listaAtualizada, List<Boolean> listaBoolean){
+		
+	}
+	
 	
 	
 }
