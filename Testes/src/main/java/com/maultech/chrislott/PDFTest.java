@@ -13,7 +13,7 @@ public class PDFTest {
  PDDocument pd;
  BufferedWriter wr;
  try {
-         File input = new File("1.pdf");  // The PDF file from where you would like to extract
+         File input = new File("2.pdf");  // The PDF file from where you would like to extract
          File output = new File("d:\\SampleText.txt"); // The text file where you are going to store the extracted data
          pd = PDDocument.load(input);
          System.out.println(pd.getNumberOfPages());
