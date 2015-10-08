@@ -11,6 +11,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -33,6 +34,8 @@ import lib.ObjetoRetorno;
 import lib.ProdutosCompufarma;
 import lib.ProdutosSoftpharma;
 import lib.TelaModelo;
+import lib.Tributacao;
+import lib.TributacaoSoftpharma;
 
 /**
  * 
@@ -155,6 +158,10 @@ public class TelaInicial extends JFrame {
 	private JButton button;
 	private JButton button_1;
 	private JButton button_2;
+	private JTextField tfIpServidor;
+	private JTextField tfBanco;
+	private JLabel lblNewLabel;
+	private JLabel lblBanco;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public TelaInicial() {
@@ -175,17 +182,55 @@ public class TelaInicial extends JFrame {
 		getContentPane().add(jpSoft, gbc_jpSoft);
 
 		gbl_jpSoft.columnWidths = new int[] { 0, 0, 0, 0 };
-		gbl_jpSoft.rowHeights = new int[] { 0, 0, 0 };
+		gbl_jpSoft.rowHeights = new int[] { 0, 0, 0, 0, 0 };
 		gbl_jpSoft.columnWeights = new double[] { 1.0, 1.0, 0.0, Double.MIN_VALUE };
-		gbl_jpSoft.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+		gbl_jpSoft.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		jpSoft.setLayout(gbl_jpSoft);
+		
+		lblNewLabel = new JLabel("Ip Servidor");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 0;
+		jpSoft.add(lblNewLabel, gbc_lblNewLabel);
+		
+		lblBanco = new JLabel("Banco");
+		GridBagConstraints gbc_lblBanco = new GridBagConstraints();
+		gbc_lblBanco.anchor = GridBagConstraints.WEST;
+		gbc_lblBanco.insets = new Insets(0, 0, 5, 5);
+		gbc_lblBanco.gridx = 1;
+		gbc_lblBanco.gridy = 0;
+		jpSoft.add(lblBanco, gbc_lblBanco);
+		
+		tfIpServidor = new JTextField();
+		tfIpServidor.setText("localhost");
+		tfIpServidor.selectAll();
+		GridBagConstraints gbc_tfIpServidor = new GridBagConstraints();
+		gbc_tfIpServidor.insets = new Insets(0, 0, 5, 5);
+		gbc_tfIpServidor.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfIpServidor.gridx = 0;
+		gbc_tfIpServidor.gridy = 1;
+		jpSoft.add(tfIpServidor, gbc_tfIpServidor);
+		tfIpServidor.setColumns(10);
+		
+		tfBanco = new JTextField();
+		tfBanco.setText("softpharma");
+		tfBanco.selectAll();
+		GridBagConstraints gbc_tfBanco = new GridBagConstraints();
+		gbc_tfBanco.insets = new Insets(0, 0, 5, 5);
+		gbc_tfBanco.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfBanco.gridx = 1;
+		gbc_tfBanco.gridy = 1;
+		jpSoft.add(tfBanco, gbc_tfBanco);
+		tfBanco.setColumns(10);
 
 		lblUsurio = new JLabel("Usuário");
 		GridBagConstraints gbc_lblUsurio = new GridBagConstraints();
 		gbc_lblUsurio.anchor = GridBagConstraints.WEST;
 		gbc_lblUsurio.insets = new Insets(0, 0, 5, 5);
 		gbc_lblUsurio.gridx = 0;
-		gbc_lblUsurio.gridy = 0;
+		gbc_lblUsurio.gridy = 2;
 		jpSoft.add(lblUsurio, gbc_lblUsurio);
 
 		lblSenha = new JLabel("Senha");
@@ -193,7 +238,7 @@ public class TelaInicial extends JFrame {
 		gbc_lblSenha.anchor = GridBagConstraints.WEST;
 		gbc_lblSenha.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSenha.gridx = 1;
-		gbc_lblSenha.gridy = 0;
+		gbc_lblSenha.gridy = 2;
 		jpSoft.add(lblSenha, gbc_lblSenha);
 
 		tfUsuarioSoft = new JTextField();
@@ -201,7 +246,7 @@ public class TelaInicial extends JFrame {
 		gbc_tfUsuarioSoft.insets = new Insets(0, 0, 0, 5);
 		gbc_tfUsuarioSoft.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfUsuarioSoft.gridx = 0;
-		gbc_tfUsuarioSoft.gridy = 1;
+		gbc_tfUsuarioSoft.gridy = 3;
 		jpSoft.add(tfUsuarioSoft, gbc_tfUsuarioSoft);
 		tfUsuarioSoft.setColumns(10);
 
@@ -211,7 +256,7 @@ public class TelaInicial extends JFrame {
 		gbc_tfSenhaSoft.insets = new Insets(0, 0, 0, 5);
 		gbc_tfSenhaSoft.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfSenhaSoft.gridx = 1;
-		gbc_tfSenhaSoft.gridy = 1;
+		gbc_tfSenhaSoft.gridy = 3;
 		jpSoft.add(tfSenhaSoft, gbc_tfSenhaSoft);
 
 		btnConectar = new JButton("Conectar");
@@ -223,7 +268,7 @@ public class TelaInicial extends JFrame {
 		});
 		GridBagConstraints gbc_btnConectar = new GridBagConstraints();
 		gbc_btnConectar.gridx = 2;
-		gbc_btnConectar.gridy = 1;
+		gbc_btnConectar.gridy = 3;
 		jpSoft.add(btnConectar, gbc_btnConectar);
 
 		jpOrigem = new JPanel();
@@ -580,7 +625,16 @@ public class TelaInicial extends JFrame {
 		jpInserirProduto.add(tfPorcentagemInserido, gbc_tfPorcentagemInserido);
 		
 		btnUtilizar = new JButton("Utilizar");
+		btnUtilizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				
+				new TelaAtualizacao(new ArrayList<ProdutosSoftpharma>(), new LinkedHashSet<Tributacao>(), new ArrayList<TributacaoSoftpharma>());
+			}
+		});
 		GridBagConstraints gbc_btnUtilizar = new GridBagConstraints();
+		gbc_btnUtilizar.anchor = GridBagConstraints.EAST;
 		gbc_btnUtilizar.gridx = 2;
 		gbc_btnUtilizar.gridy = 1;
 		jpTodosProdutos.add(btnUtilizar, gbc_btnUtilizar);
@@ -784,6 +838,7 @@ public class TelaInicial extends JFrame {
 		
 		button = new JButton("Utilizar");
 		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.anchor = GridBagConstraints.EAST;
 		gbc_button.gridx = 2;
 		gbc_button.gridy = 1;
 		jpEstoqueMaior0.add(button, gbc_button);
@@ -987,6 +1042,7 @@ public class TelaInicial extends JFrame {
 		
 		button_1 = new JButton("Utilizar");
 		GridBagConstraints gbc_button_1 = new GridBagConstraints();
+		gbc_button_1.anchor = GridBagConstraints.EAST;
 		gbc_button_1.gridx = 2;
 		gbc_button_1.gridy = 1;
 		panel_1.add(button_1, gbc_button_1);
@@ -1189,6 +1245,7 @@ public class TelaInicial extends JFrame {
 		
 		button_2 = new JButton("Utilizar");
 		GridBagConstraints gbc_button_2 = new GridBagConstraints();
+		gbc_button_2.anchor = GridBagConstraints.EAST;
 		gbc_button_2.gridx = 2;
 		gbc_button_2.gridy = 1;
 		panel_5.add(button_2, gbc_button_2);
@@ -1308,12 +1365,16 @@ public class TelaInicial extends JFrame {
 
 		modelo.setSenha(tfSenhaSoft.getText());
 		modelo.setUsuario(tfUsuarioSoft.getText());
+		modelo.setIp(tfIpServidor.getText());
+		modelo.setBanco(tfBanco.getText());
 
 		if (!modelo.getUsuario().isEmpty() && !modelo.getSenha().isEmpty()) {
 			if (consultas.testeConexao(modelo)) {
 				lbMensagemSoft.setText("Conectado.");
 				tfUsuarioSoft.setEnabled(false);
 				tfSenhaSoft.setEnabled(false);
+				tfIpServidor.setEnabled(false);
+				tfBanco.setEnabled(false);
 				btnConectar.setEnabled(false);
 				conectadoSoft = true;
 			} else {

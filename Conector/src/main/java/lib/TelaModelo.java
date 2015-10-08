@@ -6,6 +6,8 @@ package lib;
  *
  */
 public class TelaModelo {
+	String ip;
+	String banco;
 	String usuarioSoft;
 	String senhaSoft;
 	String quantidadeSoft;
@@ -53,6 +55,38 @@ public class TelaModelo {
 	public void setQuantidade(String quantidade) {
 		this.quantidadeSoft = quantidade;
 	}
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+	public String getBanco() {
+		return banco;
+	}
+	public void setBanco(String banco) {
+		this.banco = banco;
+	}
+	public String getUsuarioSoft() {
+		return usuarioSoft;
+	}
+	public void setUsuarioSoft(String usuarioSoft) {
+		this.usuarioSoft = usuarioSoft;
+	}
+	public String getSenhaSoft() {
+		return senhaSoft;
+	}
+	public void setSenhaSoft(String senhaSoft) {
+		this.senhaSoft = senhaSoft;
+	}
+	public String getQuantidadeSoft() {
+		return quantidadeSoft;
+	}
+	public void setQuantidadeSoft(String quantidadeSoft) {
+		this.quantidadeSoft = quantidadeSoft;
+	}
+	
+	
 	
 	
 	

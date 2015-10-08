@@ -26,17 +26,14 @@ public class ConectarMysql {
 	 * @param senha
 	 * @return
 	 */
-	public static Connection conectarBanco(String usuario, String senha) {
+	public static Connection conectarBanco(String ip,String banco,String usuario, String senha) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/softpharma", usuario, senha);
+			Connection con = DriverManager.getConnection("jdbc:mysql://"+ip+"/"+banco, usuario, senha);
 			System.out.println("Conectando ao banco Soft...");
 			return con;
 		} catch (ClassNotFoundException ex) {
-			// Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE,
-			// null, ex);
 		} catch (SQLException e) {
-//			throw new RuntimeException(e + "- " + "Usuario ou a senha está errado.");
 			return null;
 		}
 		return null;
@@ -50,10 +47,10 @@ public class ConectarMysql {
 	 * @param senha
 	 * @return
 	 */
-	public static List<ProdutosSoftpharma> pesquisaAtivos(String sql, String usuario, String senha) {
+	public static List<ProdutosSoftpharma> pesquisaAtivos(String sql, String ip,String banco,String usuario, String senha) {
 
 		try {
-			Connection con = conectarBanco(usuario, senha);
+			Connection con = conectarBanco(ip,banco,usuario, senha);
 
 			stms = con.createStatement();
 

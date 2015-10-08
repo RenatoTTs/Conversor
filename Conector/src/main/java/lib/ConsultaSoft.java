@@ -16,7 +16,7 @@ public class ConsultaSoft {
 	public List<ProdutosSoftpharma> pesquisaProdutosAtivos(TelaModelo modelo) {
 		String sql = " SELECT  c.cad_descricao,  c.cad_cod_barra,  c1.cad_qtde_estoque	FROM  estcad1 AS c1  INNER JOIN estcad c ON c1.`cad_codigo` = c.`cad_codigo` WHERE c.`cad_situacao` = 0 ";		
 		@SuppressWarnings("static-access")
-		List<ProdutosSoftpharma> retornoPesquisa = conectar.pesquisaAtivos(sql,modelo.usuarioSoft, modelo.senhaSoft);
+		List<ProdutosSoftpharma> retornoPesquisa = conectar.pesquisaAtivos(sql,modelo.getIp(),modelo.getBanco(),modelo.getUsuarioSoft(), modelo.getSenhaSoft());
 		
 		return retornoPesquisa;
 	}
@@ -29,7 +29,7 @@ public class ConsultaSoft {
 	@SuppressWarnings("static-access")
 	public Boolean validarConexao(TelaModelo modelo){
 		
-		if(conectar.conectarBanco(modelo.usuarioSoft, modelo.senhaSoft) != null){
+		if(conectar.conectarBanco(modelo.getIp(),modelo.getBanco(), modelo.getUsuarioSoft(), modelo.getSenhaSoft()) != null){
 			return true;
 		}else{
 			return false;
@@ -37,6 +37,7 @@ public class ConsultaSoft {
 		}
 		
 	}
+	
 
 	
 	public void dividirDescricaoEAtualizar(Set<ProdutosSoftpharma> listaAtualizada, List<Boolean> listaBoolean){
